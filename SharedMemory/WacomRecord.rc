@@ -1,0 +1,154 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "WacomRecord.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Deutsch (Deutschland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Data
+//
+
+DLGINCLUDE RCDATA DISCARDABLE
+BEGIN
+    "WacomRecord.H\0"
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+// baseunitX: 8
+// baseunitY: 16
+// templateunitX = pixelX*4/ baseunitX=1024/2=512
+// templateunitY = pixelY*8/ baseunitY=768/2=384
+WACOMRECORD DIALOG DISCARDABLE  0, 0, 683, 472
+STYLE WS_POPUP | WS_BORDER
+//STYLE WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+//CAPTION "WacomRecord"
+CLASS "WacomRecord"
+FONT 8, "Helv"
+BEGIN
+    LTEXT           "Horizontal",101,5,66,44,8
+    LTEXT           "Vertical",102,5,74,44,8
+    LTEXT           "Diagonal",103,5,82,44,8
+    LTEXT           "Inches",104,89,54,24,8
+    LTEXT           "Centimeters",105,119,54,42,8
+    LTEXT           "Click me to measure.",ID_CLICK,8,22,138,8
+    LTEXT           "Hold down a button to start.",ID_PRESS,8,30,138,8,NOT
+                    WS_VISIBLE
+    LTEXT           "Release the button to finish.",ID_RELEASE,8,38,138,8,
+                    NOT WS_VISIBLE
+    LTEXT           "0",ID_HI,89,66,24,8
+    LTEXT           "0",ID_VI,89,74,24,8
+    LTEXT           "0",ID_DI,89,82,24,8
+    LTEXT           "0",ID_HC,119,66,42,8
+    LTEXT           "0",ID_VC,119,74,42,8
+    LTEXT           "0",ID_DC,119,82,42,8
+    LTEXT           "Packet Count",IDC_PACKETCOUNT,8,102,55,11
+    LTEXT           "0",ID_PACKETCOUNT,89,102,28,10
+    CONTROL         "START",IDC_CHECK1,"Button",BS_AUTOCHECKBOX |
+                    BS_PUSHLIKE | BS_NOTIFY | WS_TABSTOP,409,24,88,36
+    CONTROL         "Gap",IDC_CHECK2,"Button",
+                    BS_NOTIFY ,409,65,88,36
+    CONTROL         "Set Directory",IDC_CHECK3,"Button",
+                    BS_NOTIFY ,409,106,88,36
+    LTEXT           "Pen UP Count",IDC_PENUPCOUNT,6,116,55,11
+    LTEXT           "Pen DOWN Count",IDC_PENDOWNCOUNT,5,130,70,11
+    LTEXT           "0",ID_PENUPCOUNT,89,115,28,10
+    LTEXT           "0",ID_PENDOWNCOUNT,89,130,28,10
+    LTEXT           "Filename",IDC_FILENAME,7,155,34,11
+    LTEXT           "",ID_FILENAME,83,153,300,13
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+WACOMRECORD             ICON    DISCARDABLE     "WacomRecord.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""WacomRecord.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE
+BEGIN
+    "WACOMRECORD", DIALOG
+    BEGIN
+        RIGHTMARGIN, 816
+        BOTTOMMARGIN, 344
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Deutsch (Deutschland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
