@@ -1,0 +1,13 @@
+[package]
+name = "tabletcore"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Data-integrity core for tablet sample recording: dual-clock timestamps and source-time decimation, with a pluggable input source (evdev on Linux)."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/muratcanozdemir/TabletIntegration"
+keywords = ["tablet", "evdev", "wacom", "input", "timestamp"]
+categories = ["hardware-support"]
+
+[target.'cfg(target_os = "linux")'.dependencies]
+evdev = "0.13.2"

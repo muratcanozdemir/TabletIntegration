@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  # Deny warnings everywhere, including doc builds.
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  # Formatting is a fast gate the rest of the pipeline depends on: if the tree
+  # isn't formatted, skip the expensive matrix and fail immediately.
+  fmt:
+    name: rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - run: cargo fmt --all -- --check
+
+  clippy:
+    name: clippy
+    runs-on: ubuntu-latest
+    needs: fmt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      # --all-targets covers lib, tests, examples, benches.
+      - run: cargo clippy --all-targets --locked -- -D warnings
+
+  # The point of this matrix: prove the core is genuinely cross-platform.
+  # `evdev` is a Linux-only dependency (see Cargo.toml target gating), so on
+  # macOS and Windows the evdev backend and its dep tree are compiled out
+  # entirely — the same `cargo test` invocation exercises core-only there and
+  # full (core + evdev) on Linux, with no feature juggling.
+  test:
+    name: test / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: fmt
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      # --locked ensures CI uses exactly the versions in Cargo.lock, catching a
+      # forgotten lock update rather than silently resolving something newer.
+      - run: cargo build --locked --verbose
+      - run: cargo test --locked --verbose
+
+  # Guard the advertised minimum supported Rust version. Bump both this and the
+  # `rust-version` field in Cargo.toml together, deliberately.
+  msrv:
+    name: msrv (1.85)
+    runs-on: ubuntu-latest
+    needs: fmt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - uses: Swatinem/rust-cache@v2
+      # Build only: MSRV covers "does it compile on the floor", not the full
+      # test matrix, which stable already covers.
+      - run: cargo build --locked
+
+  # Catch dependency lower-bound rot: if we declare `evdev = "0.13"` but actually
+  # rely on something only present in 0.13.2, minimal-versions resolution surfaces
+  # it here rather than in a downstream user's build. Nightly-only resolver flag.
+  minimal-versions:
+    name: minimal-versions
+    runs-on: ubuntu-latest
+    needs: fmt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo +nightly build -Z minimal-versions --verbose
